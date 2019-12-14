@@ -19,7 +19,7 @@ library(xtable)
 ```{r data_processing,cache=TRUE}
 df <- read.csv('activity.csv')
 df$date <- as.Date(df$date)
-str(data)
+str(df)
 ```
 
 
@@ -27,7 +27,7 @@ str(data)
 
 1.Make a histogram of the total number of steps taken each day
 
-```{r histogram}
+```{r histogram,warning=FALSE}
 ggplot(df,aes(x = date,y = steps)) + geom_bar(na.rm = F,stat="identity") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + ggtitle('Total number of steps taken each day')
 ```
 
@@ -45,7 +45,7 @@ print(results,type = 'html')
 
 1.Make a time series plot (i.e. type = "l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r timeseries}
+```{r timeseries,warning=FALSE}
 df1 <- df %>% group_by(interval) %>% summarise(step = mean(steps,na.rm = T))
 ggplot(df1,aes(x = interval,y = step)) + geom_line() + ggtitle('Average number of steps taken of 5-minute interval')
 ```

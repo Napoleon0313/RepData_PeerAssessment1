@@ -11,12 +11,14 @@ output:
 ```r
 df <- read.csv('activity.csv')
 df$date <- as.Date(df$date)
-str(data)
+str(df)
 ```
 
 ```
-function (..., list = character(), package = NULL, lib.loc = NULL, 
-    verbose = getOption("verbose"), envir = .GlobalEnv)  
+'data.frame':	17568 obs. of  3 variables:
+ $ steps   : int  NA NA NA NA NA NA NA NA NA NA ...
+ $ date    : Date, format: "2012-10-01" "2012-10-01" ...
+ $ interval: int  0 5 10 15 20 25 30 35 40 45 ...
 ```
 
 
@@ -27,10 +29,6 @@ function (..., list = character(), package = NULL, lib.loc = NULL,
 
 ```r
 ggplot(df,aes(x = date,y = steps)) + geom_bar(na.rm = F,stat="identity") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + ggtitle('Total number of steps taken each day')
-```
-
-```
-Warning: Removed 2304 rows containing missing values (position_stack).
 ```
 
 ![](PA1_template_files/figure-html/histogram-1.png)<!-- -->
@@ -60,14 +58,6 @@ print(results,type = 'html')
 
 ```r
 df1 <- df %>% group_by(interval) %>% summarise(step = mean(steps,na.rm = T))
-```
-
-```
-Warning: The `printer` argument is deprecated as of rlang 0.3.0.
-This warning is displayed once per session.
-```
-
-```r
 ggplot(df1,aes(x = interval,y = step)) + geom_line() + ggtitle('Average number of steps taken of 5-minute interval')
 ```
 
@@ -144,7 +134,7 @@ print(results_new,type = 'html')
   <tr> <td align="right"> 1 </td> <td align="right"> 10766.19 </td> <td align="right"> 10766.19 </td> </tr>
    </table>
 
-The two values are both greater than the estimates from the first part of the assignment because we use the mean values of steps in each 5-minute inteval, which are greater than 0, to impute the missing values (which are 0 when we set na.rm = T in the first part.)
+The two values are both greater than the estimates from the first part of the assignment because we use the mean values of steps in each 5-minute interval, which are greater than 0, to impute the missing values (which are 0 when we set na.rm = T in the first part.)
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
